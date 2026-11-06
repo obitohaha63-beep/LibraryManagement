@@ -1,0 +1,4 @@
+@model Page<LoanDto>
+@{ ViewData["Title"] = "Chi tiết phiếu mượn"; }
+<a class="ui-button ui-button--text" href="/MyLoans?active=false">← Về lịch sử</a><p class="ui-eyebrow">THÔNG TIN GIAO DỊCH CỦA BẠN</p><h1 class="ui-title">Phiếu mượn <em>#@Model.Items.FirstOrDefault()?.LoanId</em></h1>
+<partial name="_LoanTable" model="Model"/><nav class="ui-row pager"><span>@Model.Total bản sao · Trang @Model.PageNumber</span>@if(Model.PageNumber>1){<a asp-route-page="@(Model.PageNumber-1)">← Trước</a>}@if(Model.PageNumber*Model.Size<Model.Total){<a asp-route-page="@(Model.PageNumber+1)">Sau →</a>}</nav>

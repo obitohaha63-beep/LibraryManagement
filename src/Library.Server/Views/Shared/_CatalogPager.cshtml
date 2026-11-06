@@ -1,0 +1,4 @@
+@model Page<BookDto>
+<nav class="ui-row pager" aria-label="Phân trang"><span>Trang @Model.PageNumber / @Math.Max(1, (int)Math.Ceiling(Model.Total / (double)Model.Size))</span>
+@if(Model.PageNumber > 1) {<a class="ui-button ui-button--secondary" asp-route-page="@(Model.PageNumber-1)" asp-route-q="@ViewBag.Query" asp-route-category="@ViewBag.Category" asp-route-author="@ViewBag.Author" asp-route-available="@ViewBag.Available">← Trước</a>}
+@if(Model.PageNumber * Model.Size < Model.Total) {<a class="ui-button ui-button--secondary" asp-route-page="@(Model.PageNumber+1)" asp-route-q="@ViewBag.Query" asp-route-category="@ViewBag.Category" asp-route-author="@ViewBag.Author" asp-route-available="@ViewBag.Available">Sau →</a>}</nav>

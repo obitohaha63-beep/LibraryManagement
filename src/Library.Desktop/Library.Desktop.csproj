@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Library.Core\Library.Core.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <!-- Keep Designer metadata in the project, rather than in a machine-specific .csproj.user. -->
+  <ItemGroup>
+    <Compile Update="LoginForm.cs"><SubType>Form</SubType></Compile>
+    <Compile Update="MainForm.cs"><SubType>Form</SubType></Compile>
+    <Compile Update="Controls\*Control.cs"><SubType>UserControl</SubType></Compile>
+    <Compile Update="**\*.Designer.cs"><DependentUpon>$([System.String]::Copy('%(Filename)').Replace('.Designer', '')).cs</DependentUpon></Compile>
+    <EmbeddedResource Update="**\*.resx"><DependentUpon>%(Filename).cs</DependentUpon></EmbeddedResource>
+  </ItemGroup>
+
+</Project>

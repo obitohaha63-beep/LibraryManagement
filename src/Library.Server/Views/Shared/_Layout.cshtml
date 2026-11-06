@@ -1,0 +1,8 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>@ViewData["Title"] · Thư viện Đại học</title><link rel="stylesheet" href="~/lib/bootstrap/bootstrap.min.css"/><link rel="stylesheet" href="~/css/root.css"/><link rel="stylesheet" href="~/css/site.css"/></head>
+<body class="wander-theme"><header class="ui-header"><a class="ui-brand" href="/"><span class="ui-brand-mark">t</span> thư viện<span class="ui-brand-caption">ĐẠI HỌC · KHÔNG GIAN TRI THỨC</span></a>
+<nav class="ui-nav"><a href="/">Khám phá sách</a>@if (User.IsInRole(Roles.Reader)) {<a href="/MyLoans">Sách của tôi</a>}
+@if (User.Identity?.IsAuthenticated == true) {<form asp-controller="Account" asp-action="Logout" method="post"><button class="ui-button ui-button--text">@User.Identity.Name · Đăng xuất</button></form>} else {<a href="/Account/Login">Đăng nhập →</a>}</nav></header>
+<main class="ui-container">@RenderBody()</main><footer class="ui-footer"><span>THƯ VIỆN ĐẠI HỌC</span><span>Mỗi trang sách, một chân trời mới.</span><span>Thứ Hai – Thứ Bảy · 07:30 – 17:00</span></footer>
+<script>document.querySelectorAll('form[method="post"]').forEach(f=>f.addEventListener('submit',()=>{if(f.checkValidity())f.querySelectorAll('button').forEach(b=>{b.disabled=true;b.textContent='Đang xử lý…'})}));</script></body></html>

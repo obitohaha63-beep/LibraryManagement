@@ -1,0 +1,3 @@
+@model LoginRequest
+@{ ViewData["Title"] = "Đăng nhập"; }
+<div class="login-wrap"><p class="ui-eyebrow">CHÀO MỪNG BẠN TRỞ LẠI</p><h1 class="ui-title">Tiếp tục<br/><em>hành trình đọc.</em></h1><form method="post" class="ui-card"><div asp-validation-summary="All" class="ui-field-error"></div><label class="ui-field">Tài khoản<input asp-for="UserName" autocomplete="username" required/></label><label class="ui-field">Mật khẩu<input asp-for="Password" type="password" autocomplete="current-password" required/></label><button class="ui-button ui-button--primary w-100">Đăng nhập →</button><p class="ui-help mt-3">Tài khoản do thư viện cấp. Liên hệ thủ thư nếu bạn cần hỗ trợ.</p></form></div>

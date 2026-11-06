@@ -1,0 +1,7 @@
+@model Page<LoanDto>
+@{ ViewData["Title"] = "Sách của tôi"; }
+<p class="ui-eyebrow">KHÔNG GIAN BẠN ĐỌC</p><h1 class="ui-title">Những trang sách<br/><em>đang đồng hành.</em></h1><div class="ui-row"><a class="ui-button ui-button--secondary" href="/MyLoans?active=true">Đang mượn</a><a class="ui-button ui-button--secondary" href="/MyLoans?active=false">Toàn bộ lịch sử</a></div>
+<form class="ui-row mt-4"><input type="hidden" name="active" value="@ViewBag.Active.ToString().ToLower()"/><label class="ui-field">Từ ngày<input name="from" type="date" value="@ViewBag.From?.ToString("yyyy-MM-dd")"/></label><label class="ui-field">Đến ngày<input name="to" type="date" value="@ViewBag.To?.ToString("yyyy-MM-dd")"/></label><button class="ui-button ui-button--primary">Lọc lịch sử</button></form>
+@if(ViewBag.Error != null) {<p class="ui-notice ui-notice--warning">@ViewBag.Error</p>}
+<partial name="_LoanTable" model="Model"/>
+<nav class="ui-row pager"><span>@Model.Total bản ghi · Trang @Model.PageNumber</span>@if(Model.PageNumber > 1) {<a asp-route-page="@(Model.PageNumber-1)" asp-route-active="@ViewBag.Active" asp-route-from="@ViewBag.From" asp-route-to="@ViewBag.To">← Trước</a>}@if(Model.PageNumber*Model.Size<Model.Total) {<a asp-route-page="@(Model.PageNumber+1)" asp-route-active="@ViewBag.Active" asp-route-from="@ViewBag.From" asp-route-to="@ViewBag.To">Sau →</a>}</nav>

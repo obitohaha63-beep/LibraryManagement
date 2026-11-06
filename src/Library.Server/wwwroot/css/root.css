@@ -1,0 +1,355 @@
+/*
+ * WANDER — reusable visual foundation
+ * Extracted from the existing frontend. No framework or JavaScript required.
+ * Style: warm ivory, forest green, sage, muted gold, editorial serif headings.
+ *
+ * Usage in another project:
+ *   <link rel="stylesheet" href="root.css">
+ *   <body class="wander-theme">
+ *     <main class="ui-container">
+ *       <p class="ui-eyebrow">YOUR SECTION LABEL</p>
+ *       <h1 class="ui-title">A thoughtful <em>experience.</em></h1>
+ *       <p class="ui-lead">Your supporting introduction.</p>
+ *       <div class="ui-grid">
+ *         <section class="ui-card">
+ *           <h2 class="ui-heading">Your content</h2>
+ *           <button class="ui-button ui-button--primary">Continue</button>
+ *         </section>
+ *         <aside class="ui-card ui-card--dark">A highlighted story</aside>
+ *       </div>
+ *     </main>
+ *   </body>
+ *
+ * Add .wander-theme to the body or any wrapper. Component rules are scoped to
+ * that wrapper; only custom properties are exposed globally through :root.
+ * Override --wander-* properties on :root or .wander-theme to customize.
+ * Fonts are the same as the original UI. For offline/self-hosted use, replace
+ * the import below with your own @font-face declarations. System fallbacks
+ * remain available if Google Fonts cannot load.
+ * State classes/ARIA attributes express visuals only; provide application
+ * behavior and semantic HTML in the consuming project.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap');
+
+/* 1. Design tokens */
+:root {
+  --wander-font-body: 'Be Vietnam Pro', Arial, sans-serif;
+  --wander-font-display: 'Playfair Display', Georgia, serif;
+  --wander-font-size: 14px;
+
+  --wander-bg: #f8f8f2;
+  --wander-surface: #ffffff;
+  --wander-surface-soft: #f5f7f0;
+  --wander-surface-selected: #f5f8ef;
+  --wander-text: #24382f;
+  --wander-text-secondary: #64745d;
+  --wander-text-muted: #6c7b62;
+  --wander-primary: #304e38;
+  --wander-primary-text: #ffffff;
+  --wander-forest: #294c3a;
+  --wander-sage: #68845b;
+  --wander-sage-border: #56794b;
+  --wander-gold: #d9b978;
+  --wander-cream: #eee8ce;
+  --wander-on-dark: #fbfaef;
+  --wander-on-dark-muted: #bac8b3;
+  --wander-border: #dfe3d8;
+  --wander-border-soft: #e1e5d8;
+  --wander-input-border: #d6ddce;
+  --wander-notice-bg: #f3f6ec;
+  --wander-notice-border: #dce3d2;
+  --wander-notice-text: #586e50;
+  --wander-warning-bg: #fff2df;
+  --wander-warning-border: #edd1a4;
+  --wander-warning-text: #7e5925;
+  --wander-focus: #cc781e;
+  --wander-selection: #f0ce90;
+
+  --wander-space-1: 4px;
+  --wander-space-2: 8px;
+  --wander-space-3: 12px;
+  --wander-space-4: 16px;
+  --wander-space-5: 20px;
+  --wander-space-6: 24px;
+  --wander-space-7: 28px;
+  --wander-space-8: 32px;
+  --wander-space-9: 40px;
+  --wander-space-10: 56px;
+  --wander-space-11: 64px;
+
+  --wander-radius-small: 6px;
+  --wander-radius-control: 8px;
+  --wander-radius-panel: 12px;
+  --wander-radius-card: 16px;
+  --wander-radius-pill: 999px;
+  --wander-shadow-card: 0 4px 15px #29432703;
+  --wander-shadow-feature: 0 12px 28px #274a3918;
+  --wander-container: 1144px;
+  --wander-header-width: 1200px;
+  --wander-gutter: 28px;
+  --wander-grid-gap: 34px;
+  --wander-transition: 160ms ease;
+}
+
+/* 2. Opt-in foundation */
+.wander-theme {
+  margin: 0;
+  background: var(--wander-bg);
+  color: var(--wander-text);
+  font-family: var(--wander-font-body);
+  font-size: var(--wander-font-size);
+  line-height: 1.7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wander-theme,
+.wander-theme *,
+.wander-theme *::before,
+.wander-theme *::after { box-sizing: border-box; }
+
+.wander-theme :where(h1, h2, h3, h4, p) { margin-top: 0; }
+.wander-theme :where(button, input, select, textarea) { font: inherit; }
+.wander-theme :where(input, select, textarea) { max-width: 100%; }
+.wander-theme :where(button, a, input, select, textarea) { -webkit-tap-highlight-color: transparent; }
+.wander-theme :where(a) { color: inherit; text-decoration: none; }
+.wander-theme :where(button) { cursor: pointer; }
+.wander-theme :where(button:disabled) { opacity: .45; cursor: not-allowed; }
+.wander-theme :where(small) { line-height: 1.7; }
+.wander-theme :where(img, svg, video) { max-width: 100%; vertical-align: middle; }
+.wander-theme ::selection { background: var(--wander-selection); color: var(--wander-text); }
+.wander-theme :where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 3px solid var(--wander-focus);
+  outline-offset: 4px;
+}
+
+/* 3. Layout — responsive breakpoint: 760px (literal for plain CSS support) */
+.wander-theme .ui-container {
+  width: 100%;
+  max-width: var(--wander-container);
+  margin-inline: auto;
+  padding: var(--wander-space-10) var(--wander-gutter) var(--wander-space-11);
+}
+.wander-theme .ui-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 1fr);
+  gap: var(--wander-grid-gap);
+  align-items: start;
+}
+.wander-theme .ui-grid > *,
+.wander-theme .ui-sidebar-layout > * { min-width: 0; }
+.wander-theme .ui-sidebar-layout {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: var(--wander-space-7);
+  align-items: start;
+}
+.wander-theme .ui-stack { display: grid; gap: var(--wander-space-6); }
+.wander-theme .ui-row { display: flex; align-items: center; gap: var(--wander-space-4); flex-wrap: wrap; }
+.wander-theme .ui-row--between { justify-content: space-between; }
+.wander-theme .ui-section { margin-top: 36px; }
+.wander-theme .ui-divider { height: 0; border: 0; border-top: 1px solid var(--wander-border); margin-block: var(--wander-space-6); }
+
+/* 4. Typography */
+.wander-theme .ui-title {
+  font-family: var(--wander-font-display);
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 1.17;
+  letter-spacing: -1.8px;
+  margin-bottom: 22px;
+}
+.wander-theme .ui-title em { color: var(--wander-sage); font-weight: inherit; }
+.wander-theme .ui-heading {
+  font-family: var(--wander-font-display);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.45;
+  margin-bottom: var(--wander-space-3);
+}
+.wander-theme .ui-lead {
+  max-width: 500px;
+  color: var(--wander-text-secondary);
+  font-size: 13px;
+  line-height: 1.95;
+  margin-bottom: var(--wander-space-6);
+}
+.wander-theme .ui-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--wander-space-5);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1.7;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.wander-theme .ui-eyebrow--line::before { content: ''; width: 28px; height: 1px; background: var(--wander-sage); flex-shrink: 0; }
+.wander-theme .ui-muted { color: var(--wander-text-muted); font-size: 10px; }
+.wander-theme .ui-prose { color: var(--wander-text-secondary); font-size: 13px; line-height: 2.2; overflow-wrap: anywhere; }
+.wander-theme .ui-prose a { text-decoration: underline; text-underline-offset: 3px; }
+.wander-theme .ui-section-heading { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+.wander-theme .ui-section-heading :where(h2, h3) { margin: 0; flex: 1; font-family: var(--wander-font-body); font-size: 14px; font-weight: 600; }
+.wander-theme .ui-section-number { color: var(--wander-text-muted); font-size: 10px; }
+
+/* 5. Header, navigation and footer — brand content belongs in the HTML */
+.wander-theme .ui-header {
+  max-width: var(--wander-header-width);
+  min-height: 96px;
+  margin-inline: auto;
+  padding: 16px var(--wander-gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--wander-space-5);
+  border-bottom: 1px solid var(--wander-border);
+}
+.wander-theme .ui-brand { display: inline-flex; align-items: center; gap: 10px; font-size: 25px; font-weight: 800; letter-spacing: -1px; }
+.wander-theme .ui-brand-mark { display: grid; place-items: center; width: 39px; height: 39px; flex-shrink: 0; border-radius: 50%; background: var(--wander-forest); color: var(--wander-on-dark); font: 27px var(--wander-font-display); }
+.wander-theme .ui-brand-caption { margin-left: 8px; padding-left: 15px; border-left: 1px solid var(--wander-border); color: var(--wander-text-muted); font-size: 8px; font-weight: 500; letter-spacing: 2px; }
+.wander-theme .ui-nav { display: flex; gap: 30px; font-size: 12px; flex-wrap: wrap; }
+.wander-theme .ui-nav a { padding-block: 14px; color: var(--wander-text-muted); border-bottom: 2px solid transparent; }
+.wander-theme .ui-nav :is(a[aria-current='page'], a.is-active) { color: var(--wander-primary); border-bottom-color: var(--wander-primary); }
+.wander-theme .ui-footer { max-width: var(--wander-container); margin-inline: auto; padding: 25px var(--wander-gutter); display: flex; justify-content: space-between; gap: var(--wander-space-5); flex-wrap: wrap; border-top: 1px solid var(--wander-border); color: var(--wander-text-muted); font-size: 9px; }
+
+/* 6. Surfaces */
+.wander-theme .ui-card {
+  min-width: 0;
+  padding: 27px 26px;
+  border: 1px solid var(--wander-border-soft);
+  border-radius: var(--wander-radius-card);
+  background: var(--wander-surface);
+  box-shadow: var(--wander-shadow-card);
+}
+.wander-theme .ui-card--compact { padding: var(--wander-space-6); border-radius: var(--wander-radius-panel); }
+.wander-theme .ui-card--soft { background: var(--wander-surface-soft); box-shadow: none; }
+.wander-theme .ui-card--dark {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 30px;
+  background: var(--wander-forest);
+  border-color: transparent;
+  color: var(--wander-on-dark);
+  box-shadow: var(--wander-shadow-feature);
+}
+.wander-theme .ui-card--dark::before { content: ''; position: absolute; z-index: -1; width: 290px; height: 290px; top: -80px; right: -150px; border: 1px solid #ffffff08; border-radius: 50%; pointer-events: none; }
+.wander-theme .ui-card--dark .ui-heading { font-size: 32px; }
+.wander-theme .ui-card--dark :is(.ui-muted, .ui-lead, .ui-prose) { color: var(--wander-on-dark-muted); }
+.wander-theme .ui-card--dark .ui-eyebrow { color: var(--wander-on-dark-muted); }
+.wander-theme .ui-empty { padding: var(--wander-space-6); border: 1px dashed var(--wander-input-border); border-radius: 10px; color: var(--wander-text-secondary); font-size: 11px; line-height: 1.9; }
+
+/* 7. Buttons — use actual <button disabled> for disabled behavior */
+.wander-theme .ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--wander-space-2);
+  max-width: 100%;
+  padding: 14px 20px;
+  border: 1px solid transparent;
+  border-radius: var(--wander-radius-control);
+  background: transparent;
+  color: inherit;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--wander-transition), filter var(--wander-transition);
+}
+.wander-theme .ui-button:hover:not(:disabled) { filter: brightness(.96); }
+.wander-theme .ui-button--primary { background: var(--wander-primary); color: var(--wander-primary-text); }
+.wander-theme .ui-button--secondary { padding: 10px 15px; border-color: var(--wander-input-border); background: var(--wander-surface); color: var(--wander-primary); }
+.wander-theme .ui-button--text { padding: 8px 0; color: var(--wander-text-secondary); text-decoration: underline; text-underline-offset: 4px; }
+.wander-theme .ui-button--cream { padding: 14px 20px; border-radius: var(--wander-radius-pill); background: var(--wander-cream); color: var(--wander-forest); font-size: 10px; font-weight: 600; }
+.wander-theme .ui-button--icon { padding: 7px; font-size: 23px; line-height: 1; }
+.wander-theme .ui-button--block { display: flex; width: 100%; justify-content: space-between; }
+.wander-theme .ui-card--dark :is(.ui-button--text, .ui-button--icon) { color: var(--wander-on-dark-muted); }
+
+/* 8. Forms — place controls inside .ui-field, exclude checkbox/radio styling */
+.wander-theme .ui-field { display: block; min-width: 0; margin-bottom: 15px; color: var(--wander-text); font-size: 11px; font-weight: 500; }
+.wander-theme .ui-field :where(input:not([type='checkbox']):not([type='radio']), select, textarea) {
+  display: block;
+  width: 100%;
+  margin-top: 7px;
+  padding: 10px;
+  border: 1px solid var(--wander-input-border);
+  border-radius: var(--wander-radius-small);
+  background: var(--wander-surface);
+  color: var(--wander-text);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.7;
+}
+.wander-theme .ui-field textarea { resize: vertical; min-height: 120px; line-height: 1.9; }
+.wander-theme .ui-field :where(input, textarea)::placeholder { color: var(--wander-text-muted); opacity: .8; }
+.wander-theme .ui-field :where(input, select, textarea)[aria-invalid='true'] { border-color: var(--wander-warning-text); }
+.wander-theme .ui-field-error { display: block; margin-top: 6px; color: var(--wander-warning-text); font-size: 10px; }
+.wander-theme .ui-field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
+.wander-theme .ui-choice { display: inline-flex; align-items: center; gap: 6px; color: var(--wander-text-secondary); font-size: 11px; }
+.wander-theme .ui-choice :where(input[type='radio'], input[type='checkbox']) { margin: 0; accent-color: var(--wander-primary); }
+.wander-theme .ui-help { padding: 12px; border-radius: 7px; background: var(--wander-surface-soft); color: var(--wander-text-secondary); font-size: 10px; line-height: 1.8; }
+
+/* 9. Choice tiles, badges, notices and list items */
+.wander-theme .ui-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 22px; }
+.wander-theme .ui-option { display: flex; align-items: center; gap: 6px; min-width: 0; padding: 13px 10px; border: 1px solid var(--wander-border-soft); border-radius: var(--wander-radius-control); background: var(--wander-surface); color: var(--wander-text-secondary); font-size: 10px; text-align: left; overflow-wrap: anywhere; }
+.wander-theme .ui-option :where(small) { padding: 3px 4px; border-radius: 3px; background: var(--wander-surface-soft); font-size: 8px; }
+.wander-theme :is(.ui-option.is-selected, .ui-option[aria-pressed='true'], .ui-option[aria-checked='true']) { border-color: var(--wander-sage-border); background: var(--wander-surface-selected); color: var(--wander-primary); }
+.wander-theme .ui-badge { display: inline-flex; align-items: center; padding: 7px 9px; border: 1px solid var(--wander-border-soft); border-radius: var(--wander-radius-pill); background: var(--wander-surface-soft); color: var(--wander-text-secondary); font-size: 8px; letter-spacing: 1px; line-height: 1.5; }
+.wander-theme .ui-notice { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin-block: 14px; padding: 12px; border: 1px solid var(--wander-notice-border); border-radius: var(--wander-radius-control); background: var(--wander-notice-bg); color: var(--wander-notice-text); font-size: 11px; line-height: 1.8; overflow-wrap: anywhere; }
+.wander-theme .ui-notice--warning { border-color: var(--wander-warning-border); background: var(--wander-warning-bg); color: var(--wander-warning-text); }
+.wander-theme .ui-status-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: var(--wander-sage); }
+.wander-theme .ui-list-item { display: flex; align-items: center; gap: 16px; padding-block: 17px; border-bottom: 1px solid var(--wander-border-soft); }
+.wander-theme .ui-list-content { flex: 1; min-width: 0; }
+.wander-theme .ui-list-content :where(h3) { margin: 6px 0; font: 600 17px/1.5 var(--wander-font-display); }
+.wander-theme .ui-list-content :where(p) { margin: 0; color: var(--wander-text-secondary); font-size: 10px; }
+.wander-theme .ui-list-art { position: relative; overflow: hidden; display: grid; place-items: center; width: 78px; height: 74px; flex-shrink: 0; border-radius: var(--wander-radius-control); background: #eee4d2; color: #8e7452; font-size: 40px; }
+.wander-theme .ui-list-art--sage { background: #e5e9dc; color: #7a8967; }
+.wander-theme .ui-list-art--clay { background: #e9ddd3; color: #94705b; }
+
+/* 10. Optional audio-inspired ornament and progress indicator */
+.wander-theme .ui-wave { display: flex; align-items: center; justify-content: center; gap: 3px; height: 100px; margin: 20px 0 5px; }
+.wander-theme .ui-wave > i { display: block; width: 3px; height: var(--bar-height, 24px); border-radius: 3px; background: #aec39a; opacity: .7; }
+.wander-theme .ui-wave > i:nth-child(3n) { background: var(--wander-gold); }
+.wander-theme .ui-wave.is-playing > i { animation: wander-wave 1s infinite alternate ease-in-out; animation-delay: var(--bar-delay, 0s); }
+.wander-theme .ui-progress { height: 2px; overflow: hidden; background: #59735d; }
+.wander-theme .ui-progress > span { display: block; width: var(--progress, 0%); max-width: 100%; height: 100%; background: var(--wander-gold); transition: width 250ms ease; }
+@keyframes wander-wave { to { transform: scaleY(.25); } }
+
+/* 11. Responsive adjustments */
+@media (max-width: 760px) {
+  .wander-theme { --wander-gutter: 20px; --wander-grid-gap: 26px; }
+  .wander-theme .ui-container { padding-block: 34px 45px; }
+  .wander-theme .ui-header { min-height: 76px; gap: 12px; flex-wrap: wrap; }
+  .wander-theme .ui-brand { font-size: 22px; }
+  .wander-theme .ui-brand-caption { display: none; }
+  .wander-theme .ui-nav { gap: 20px; font-size: 11px; }
+  .wander-theme :is(.ui-grid, .ui-sidebar-layout) { grid-template-columns: minmax(0, 1fr); }
+  .wander-theme .ui-title { font-size: 43px; letter-spacing: -1px; }
+  .wander-theme .ui-lead { font-size: 12px; }
+  .wander-theme .ui-card { padding: 23px 18px; }
+  .wander-theme .ui-card--dark { padding: 27px; }
+  .wander-theme .ui-card--dark .ui-heading { font-size: 31px; }
+  .wander-theme .ui-field-grid { gap: 0 12px; }
+  .wander-theme .ui-option { padding: 12px 7px; }
+  .wander-theme .ui-footer { font-size: 8px; }
+  .wander-theme .ui-wave { height: 85px; }
+}
+
+@media (max-width: 360px) {
+  .wander-theme .ui-title { font-size: 36px; }
+  .wander-theme .ui-field-grid { grid-template-columns: minmax(0, 1fr); }
+  .wander-theme .ui-options { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* 12. Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .wander-theme *,
+  .wander-theme *::before,
+  .wander-theme *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

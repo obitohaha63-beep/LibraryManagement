@@ -1,0 +1,28 @@
+# Build artifacts
+bin/
+obj/
+.vs/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
+
+# Visual Studio
+*.user
+*.suo
+*.cache
+
+# Secrets
+.env
+.env.*
+secrets.json
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Test results
+TestResults/
